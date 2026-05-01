@@ -5,7 +5,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cmake clan
 
 COPY . /repo
 WORKDIR /repo/build
-RUN cmake .. -DCMAKE_INSTALL_PREFIX=/install
+RUN cmake .. -DCMAKE_INSTALL_PREFIX=/install -DARMIPS_USE_STD_FILESYSTEM=ON
 RUN make -j8
 RUN make install
 RUN clang++ /repo/mayhem/fuzz_toLowercase.cpp -fsanitize=fuzzer,address -L /repo/build/ -larmips -o /fuzz
